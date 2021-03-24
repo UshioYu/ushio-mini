@@ -53,7 +53,7 @@ public class TestController {
         if (testDto.getUserName().contains("error1")) {
             ServiceException.throwException("error1");
         } else if (testDto.getUserName().contains("error2")) {
-            throw new ServiceException("error2",new RuntimeException());
+            throw new RuntimeException("error2");
         }
         return testService.login(testDto);
     }
