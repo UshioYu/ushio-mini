@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class TestController {
 
-    @Value("${ushio.key1}")
-    private String ushioKey;
-
     @Autowired
     private TestService testService;
 
@@ -52,7 +49,6 @@ public class TestController {
     @ApiOperation(value = "post1方法",notes = "post1")
     @PostMapping("/post1")
     public String post1(@RequestBody TestDto testDto){
-        log.info(ushioKey);
         return testService.login(testDto);
     }
 
