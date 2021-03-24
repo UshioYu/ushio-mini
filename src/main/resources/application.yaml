@@ -1,0 +1,10 @@
+#yaml格式：
+server:
+  port:8081
+  connection-timeout: 18000000 #高版本已经去除
+  servlet:
+    session:
+      timeout: 30m
+ushio:
+  key1:ushioyu
+
