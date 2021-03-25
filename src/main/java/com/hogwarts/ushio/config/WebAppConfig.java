@@ -2,7 +2,6 @@ package com.hogwarts.ushio.config;
 
 import com.hogwarts.ushio.config.interceptor.TestInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -52,7 +51,7 @@ public class WebAppConfig extends WebMvcConfigurationSupport {
     }
 
     @Bean
-    private HttpMessageConverter<String> messageConverter(){
+    public HttpMessageConverter<String> messageConverter(){
         //解决乱码问题
         return new StringHttpMessageConverter(Charset.forName("UTF-8"));
     }
