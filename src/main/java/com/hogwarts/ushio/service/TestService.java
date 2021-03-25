@@ -1,8 +1,9 @@
 package com.hogwarts.ushio.service;
 
+import com.hogwarts.ushio.dto.ResultDto;
 import com.hogwarts.ushio.dto.TestDto;
 
 public interface TestService {
 
-    String login(TestDto testDto);
+    ResultDto login(TestDto testDto);
 }

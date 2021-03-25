@@ -1,5 +1,6 @@
 package com.hogwarts.ushio.controller;
 
+import com.hogwarts.ushio.dto.ResultDto;
 import com.hogwarts.ushio.dto.TestDto;
 import com.hogwarts.ushio.exception.ServiceException;
 import com.hogwarts.ushio.service.TestService;
@@ -49,7 +50,7 @@ public class TestController {
 
     @ApiOperation(value = "post1方法",notes = "post1")
     @PostMapping("/post1")
-    public String post1(@RequestBody TestDto testDto){
+    public ResultDto post1(@RequestBody TestDto testDto){
         if (testDto.getUserName().contains("error1")) {
             ServiceException.throwException("error1");
         } else if (testDto.getUserName().contains("error2")) {
