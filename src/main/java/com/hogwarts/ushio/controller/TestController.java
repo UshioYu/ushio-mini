@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @description:
  **/
 @RestController
-@RequestMapping("ushio")
+@RequestMapping("ushio111")
 @Api(tags = "ushio用户测试管理")
 @Slf4j
 public class TestController {
