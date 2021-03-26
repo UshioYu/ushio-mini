@@ -9,3 +9,18 @@ server:
 spring:
   application:
     name: ushio-spring
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/ushio_mini?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: yujian1989
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.hogwarts.ushio.entity
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+  logging:
+    level:
+      com.hogwarts.ushio.dao: debug #打印sql
