@@ -37,6 +37,26 @@
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
+        <table schema="ushio-mini" tableName="hogwarts_test_jenkins" domainObjectName="HogwartsTestJenkins" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table schema="ushio-mini" tableName="hogwarts_test_task" domainObjectName="HogwartsTestTask" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table schema="ushio-mini" tableName="hogwarts_test_case" domainObjectName="HogwartsTestCase" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+        <table schema="ushio-mini" tableName="hogwarts_test_task_case_rel" domainObjectName="HogwartsTestTaskRel" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" enableUpdateByExample="false" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
     </context>
 
 </generatorConfiguration>
