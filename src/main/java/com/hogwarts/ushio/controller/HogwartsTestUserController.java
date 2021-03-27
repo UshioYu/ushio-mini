@@ -11,11 +11,13 @@ import com.hogwarts.ushio.utils.JenkinsUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.util.TextUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,6 +48,20 @@ public class HogwartsTestUserController {
         }
         log.info("register testUser:" + JSONObject.toJSONString(testUser));
         return userService.register(testUser);
+    }
+
+    @ApiOperation(value = "用户登录")
+    @PostMapping("/login")
+    public ResultDto<String> login(@RequestBody LoginUserDto loginUserDto){
+        String userName = loginUserDto.getUserName();
+        String password = loginUserDto.getPassword();
+        log.info("userName:" + userName + ",password:" + password);
+        if (TextUtils.isEmpty(userName)) {
+            return ResultDto.fail("用户名不能为空！");
+        } else if (TextUtils.isEmpty(password)) {
+            return ResultDto.fail("密码不能为空！");
+        }
+        return userService.login(userName,password);
     }
 
     @ApiOperation(value = "修改用户信息")

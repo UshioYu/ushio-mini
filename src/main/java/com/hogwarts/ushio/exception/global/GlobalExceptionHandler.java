@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    //@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = ServiceException.class)
     public ResultDto serviceExceptionHandler(ServiceException exception){
         log.error(exception.getMessage());
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
     public ResultDto resultFormat(Throwable throwable){
         String errorMsg = "系统错误";
         if (throwable instanceof ServiceException) {
-            errorMsg = "业务异常";
+            errorMsg = "业务异常" + "," + throwable.getMessage();
         } else if (throwable instanceof Exception) {
             errorMsg = "非业务异常";
         }
