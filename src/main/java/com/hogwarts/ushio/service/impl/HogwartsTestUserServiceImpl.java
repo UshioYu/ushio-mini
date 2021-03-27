@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: ushio
@@ -36,5 +37,20 @@ public class HogwartsTestUserServiceImpl implements HogwartsTestUserService {
         testUser.setId(userId);
         userMapper.delete(testUser);
         return ResultDto.success("删除成功！");
+    }
+
+    @Override
+    public ResultDto<HogwartsTestUser> update(HogwartsTestUser testUser) {
+        testUser.setUpdateTime(new Date());
+        //userMapper.updateByPrimaryKeySelective(testUser);
+        userMapper.updateUser(testUser.getUserName(),testUser.getPassword(), testUser.getId());
+        return ResultDto.success("成功",testUser);
+    }
+
+    @Override
+    public ResultDto<List<HogwartsTestUser>> getByName(HogwartsTestUser testUser) {
+        //List<HogwartsTestUser> hogwartsTestUserList = userMapper.getByName(testUser.getUserName(), testUser.getId());
+        List<HogwartsTestUser> hogwartsTestUserList = userMapper.select(testUser);
+        return ResultDto.success("成功", hogwartsTestUserList);
     }
 }

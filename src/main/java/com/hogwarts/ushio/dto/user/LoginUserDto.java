@@ -13,6 +13,9 @@ import lombok.Data;
 @ApiModel(value = "用户对象",description = "用户user")
 public class LoginUserDto extends BaseDto {
 
+    @ApiModelProperty(value="用户id", example="12",required=true)
+    private Integer id;
+
     @ApiModelProperty(value = "用户名",required = true)
     private String userName;
     @ApiModelProperty(value = "密码",required = true)
