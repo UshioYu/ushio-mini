@@ -132,6 +132,13 @@
 			<version>1.2.70</version>
 		</dependency>
 
+		<!--jenkins引入-->
+		<dependency>
+			<groupId>com.offbytwo.jenkins</groupId>
+			<artifactId>jenkins-client</artifactId>
+			<version>0.3.8</version>
+		</dependency>
+
 	</dependencies>
 
 	<profiles>

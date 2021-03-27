@@ -1,11 +1,13 @@
 package com.hogwarts.ushio.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hogwarts.ushio.dto.BuildDto;
 import com.hogwarts.ushio.dto.ResultDto;
 import com.hogwarts.ushio.dto.user.AddUserDto;
 import com.hogwarts.ushio.dto.user.LoginUserDto;
 import com.hogwarts.ushio.entity.HogwartsTestUser;
 import com.hogwarts.ushio.service.HogwartsTestUserService;
+import com.hogwarts.ushio.utils.JenkinsUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -79,5 +83,13 @@ public class HogwartsTestUserController {
 
         log.info("delete userId：" + userId);
         return userService.delete(userId);
+    }
+
+    @ApiOperation("调用jenkins构建job")
+    @PutMapping("build")
+    public ResultDto build(@RequestBody BuildDto buildDto) throws IOException, URISyntaxException {
+        log.info("build buildDto:"+JSONObject.toJSONString(buildDto));
+        JenkinsUtil.build(buildDto.getJobName(), buildDto.getUserId(), buildDto.getRemark(), buildDto.getTestCommand());
+        return ResultDto.success("构建成功！！");
     }
 }
