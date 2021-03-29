@@ -30,7 +30,7 @@ public class HogwartsTestCase extends BaseEntityNew {
      * 删除标志 1 未删除 0 已删除
      */
     @Column(name = "del_flag")
-    private Byte delFlag;
+    private Integer delFlag;
 
     /**
      * 创建人id
