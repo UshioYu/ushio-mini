@@ -1,12 +1,15 @@
 package com.hogwarts.ushio.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hogwarts.ushio.common.db.TokenDb;
 import com.hogwarts.ushio.dto.BuildDto;
 import com.hogwarts.ushio.dto.ResultDto;
+import com.hogwarts.ushio.dto.TokenDto;
 import com.hogwarts.ushio.dto.user.AddUserDto;
 import com.hogwarts.ushio.dto.user.LoginUserDto;
 import com.hogwarts.ushio.entity.HogwartsTestUser;
 import com.hogwarts.ushio.service.HogwartsTestUserService;
+import com.hogwarts.ushio.utils.Constant;
 import com.hogwarts.ushio.utils.JenkinsUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +37,9 @@ public class HogwartsTestUserController {
 
     @Autowired
     private HogwartsTestUserService userService;
+
+    @Autowired
+    private TokenDb tokenDb;
 
     @ApiOperation(value = "用户注册")
     @PostMapping("/register")
@@ -99,6 +105,38 @@ public class HogwartsTestUserController {
 
         log.info("delete userId：" + userId);
         return userService.delete(userId);
+    }
+
+    @ApiOperation(value = "用户登出")
+    @DeleteMapping("logout")
+    public ResultDto logout(HttpServletRequest request){
+
+        String token = request.getHeader(Constant.LOGIN_TOKEN);
+        log.info("logout token：" + token);
+        boolean isLogined =tokenDb.isOnline(token);
+        log.info("logout isLogined：" + isLogined);
+        if(!isLogined){
+            return ResultDto.fail("用户未登录！");
+        }
+
+        TokenDto tokenDto = tokenDb.removeUserInfo(token);
+        return ResultDto.success("登出成功！",tokenDto);
+    }
+
+    @ApiOperation(value = "是否已经登录接口")
+    @GetMapping("isLogin")
+    public ResultDto<TokenDto> isLogin(HttpServletRequest request){
+
+        String token = request.getHeader(Constant.LOGIN_TOKEN);
+        log.info("logout token：" + token);
+        boolean isLogined =tokenDb.isOnline(token);
+        log.info("logout isLogined：" + isLogined);
+        if(!isLogined){
+            return ResultDto.fail("用户未登录！");
+        }
+
+        TokenDto tokenDto = tokenDb.getUserInfo(token);
+        return ResultDto.success("已经登录！",tokenDto);
     }
 
     @ApiOperation("调用jenkins构建job")

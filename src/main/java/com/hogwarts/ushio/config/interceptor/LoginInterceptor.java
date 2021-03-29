@@ -30,14 +30,17 @@ public class LoginInterceptor implements HandlerInterceptor {
         log.info("preHandle()");
         String requestUrl = request.getRequestURI();
         log.info("preHandle() requestUrl:" + requestUrl);
-        //注册登录接口没有token无需拦截
+
+        //从请求的head头中获取客户端token
+        String token = request.getHeader(Constant.LOGIN_TOKEN);
+        log.info("preHandle() token:" + token);
+
+        //注册登录接口没有token无需拦截(单点登录的话这里拦截ushio/login，根据tokenDb.isOnline(token)判断)
         if(requestUrl.contains("ushio/register")||
                 requestUrl.contains("ushio/login")){
             return true;
         }
-        //从请求的head头中获取客户端token
-        String token = request.getHeader(Constant.LOGIN_TOKEN);
-        log.info("preHandle() token:" + token);
+
         if(TextUtils.isEmpty(token) || Objects.isNull(tokenDb.getUserInfo(token))) {
             //无token或token对应tokenDto为空，响应码设401，抛出业务异常：客户端未传token
             response.setStatus(401);
