@@ -31,13 +31,28 @@ public class LoginInterceptor implements HandlerInterceptor {
         String requestUrl = request.getRequestURI();
         log.info("preHandle() requestUrl:" + requestUrl);
 
+        //如果为swagger文档地址,直接通过
+        boolean swaggerFlag = requestUrl.contains("swagger")
+                //过滤spring默认错误页面
+                || requestUrl.equals("/error")
+                //过滤csrf
+                || requestUrl.equals("/csrf")
+                //过滤http://127.0.0.1:8093/v2/api-docs
+                || requestUrl.equals("/favicon.ico")
+                //演示map local 不用校验是否登录
+                || requestUrl.equals("/report/showMapLocal")
+                || requestUrl.equals("/");
+        if (swaggerFlag) {
+            return true;
+        }
+
         //从请求的head头中获取客户端token
         String token = request.getHeader(Constant.LOGIN_TOKEN);
         log.info("preHandle() token:" + token);
 
         //注册登录接口没有token无需拦截(单点登录的话这里拦截ushio/login，根据tokenDb.isOnline(token)判断)
-        if(requestUrl.contains("ushio/register")||
-                requestUrl.contains("ushio/login")){
+        if (requestUrl.contains("ushio/register") ||
+                requestUrl.contains("ushio/login")) {
             return true;
         }
 

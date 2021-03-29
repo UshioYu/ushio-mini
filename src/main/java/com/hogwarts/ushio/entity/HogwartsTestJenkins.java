@@ -1,5 +1,6 @@
 package com.hogwarts.ushio.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -52,7 +53,7 @@ public class HogwartsTestJenkins extends BaseEntityNew {
      * 命令运行的测试用例类型  1 文本 2 文件
      */
     @Column(name = "command_run_case_type")
-    private Byte commandRunCaseType;
+    private Integer commandRunCaseType;
 
     /**
      * 备注
@@ -76,5 +77,13 @@ public class HogwartsTestJenkins extends BaseEntityNew {
      */
     @Column(name = "update_time")
     private Date updateTime;
+
+    /**
+     *  此字段不存入数据库(此处是业务需要使用)
+     * 是否设置为默认服务器 1 是 0 否
+     */
+    @Transient
+    @ApiModelProperty(value="是否设置为默认服务器 1 是 0 否",required=true)
+    private Integer defaultJenkinsFlag = 0;
 
 }
